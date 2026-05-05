@@ -1,0 +1,51 @@
+/* *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+img{
+  max-width: 100%;
+}
+
+a,button{
+  cursor:pointer
+}
+
+label{
+  display: block;
+}
+
+input, select, textarea{
+  padding: 5px;
+  width: 100%;
+  font-size: 18px;
+  resize: none;
+  border-radius: 5px;
+  border: 1px solid #c7c7c7;
+} */
+ body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Force readable form controls for all themes */
+input, select, textarea {
+  color: #111827; /* text-gray-900 */
+  background-color: #ffffff; /* white background */
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid #d1d5db; /* gray-300 */
+  font-size: 0.9375rem; /* 15px */
+}
+
+/* Improve select option legibility */
+select option {
+  color: #111827;
+  background-color: #ffffff;
+}
+
+/* Ensure placeholders are slightly muted */
+input::placeholder, textarea::placeholder, select[disabled] {
+  color: #6b7280; /* text-gray-500 */
+}
