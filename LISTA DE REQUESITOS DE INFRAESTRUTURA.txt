@@ -1,0 +1,22 @@
+Lista de requisitos de infraestrutura com base na estrutura do projeto:
+
+   1. Tempo de Execução (Runtime) Node.js: O projeto é baseado em Node.js, então um
+      ambiente de execução Node.js é necessário.
+   2. Banco de Dados Relacional: O prisma/schema.prisma e
+      prisma/migrations para o uso do Prisma ORM, que requer um banco de dados   
+      relacional (ex: PostgreSQL(usado nesse projeto), MySQL, SQL Server) para armazenar os dados da    
+      aplicação.
+   3. Docker: O Dockerfile para que a aplicação seja conteinerizada, para um ambiente Docker para construir e executar as imagens da aplicação.        
+   4. Sistema de Gerenciamento de Variáveis de Ambiente: Os arquivos .env.test e   
+      env.js servem como um mecanismo para gerenciar e injetar        
+      variáveis de ambiente de forma segura (por exemplo, chaves de API, strings de
+      conexão do banco de dados).
+   5. Ambiente de Teste: Com jest.config.js e a pasta __tests__, cria-se um ambiente que   
+      para execução de testes Jest, como parte de um pipeline de CI/CD.
+   6. Sistema de Controle de Versão (Git): Embora não explicitamente um "requisito 
+      de infraestrutura" no sentido de hardware, é fundamental para o
+      desenvolvimento e implantação, e o .gitignore confirma seu uso.
+   7. CI/CD (Integração Contínua/Entrega Contínua): Para automatizar a construção, 
+      teste e implantação dos contêineres Docker da aplicação.
+   8. Monitoramento e Registro (Logging): Essencial para observar a saúde da       
+      aplicação, identificar problemas e depurar em produção.

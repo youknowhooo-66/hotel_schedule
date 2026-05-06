@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: hotel_schedule_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://user:password@db:5432/hotel_schedule_db?schema=public
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    command: bash -c "npx prisma migrate deploy && npm start"
+
+volumes:
+  db-data:

@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/youknowhooo-66/cleaning_schedule.git"
   },
+  "prisma": {
+      "seed": "node prisma/seed.js"
+  },
   "license": "MIT",
   "author": "Maycon Gibson",
   "type": "module",

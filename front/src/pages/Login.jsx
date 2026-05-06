@@ -34,7 +34,7 @@ export default function Login(){
 
             if(data.usuario.tipoUsuario === "ADMIN"){
                 // console.log("Entrando como ADMIN")
-                navigate("/admin")
+                navigate("/dashboard")
             }else{
                 // console.log("Entrando como USER")
                 navigate("/dashboard")

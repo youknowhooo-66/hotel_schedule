@@ -1,0 +1,5 @@
+   **Seed do Banco de Dados:**
+    Para popular o banco de dados com dados iniciais:
+    ```bash
+    npx prisma db seed
+    ```
