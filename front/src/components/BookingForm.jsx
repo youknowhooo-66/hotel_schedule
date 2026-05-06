@@ -167,7 +167,7 @@ export default function BookingForm({ onSubmit, bookingSelecionado, rooms }) {
               <option value="" disabled className="text-gray-400">Selecione um quarto...</option>
               {rooms.map((c) => (
                 <option key={c.id} value={c.id} className="text-gray-900">
-                  {c.name}
+                  {`Quarto ${c.number} (${c.category})`}
                 </option>
               ))}
             </select>

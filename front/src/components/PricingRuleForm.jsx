@@ -53,7 +53,7 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+        <label htmlFor="  " className="block text-sm font-medium text-gray-700">Descrição</label>
         <input
           type="text"
           id="description"
@@ -65,7 +65,7 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
         />
       </div>
       <div>
-        <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">Start Date</label>
+        <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">Data de ingresso</label>
         <input
           type="date"
           id="startDate"
@@ -77,7 +77,7 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
         />
       </div>
       <div>
-        <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">End Date</label>
+        <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">Data de Saida</label>
         <input
           type="date"
           id="endDate"
@@ -89,7 +89,7 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
         />
       </div>
       <div>
-        <label htmlFor="priceMultiplier" className="block text-sm font-medium text-gray-700">Price Multiplier</label>
+        <label htmlFor="priceMultiplier" className="block text-sm font-medium text-gray-700">Multiplicador de preço</label>
         <input
           type="number"
           id="priceMultiplier"
@@ -101,7 +101,7 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
         />
       </div>
       <div>
-        <label htmlFor="fixedPrice" className="block text-sm font-medium text-gray-700">Fixed Price (Optional)</label>
+        <label htmlFor="fixedPrice" className="block text-sm font-medium text-gray-700">Preço fixo (Optional)</label>
         <input
           type="number"
           id="fixedPrice"
@@ -113,7 +113,7 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
         />
       </div>
       <div>
-        <label htmlFor="category" className="block text-sm font-medium text-gray-700">Room Category (Optional)</label>
+        <label htmlFor="category" className="block text-sm font-medium text-gray-700">Categoria de quartos (Optional)</label>
         <select
           id="category"
           name="category"
@@ -121,10 +121,10 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
           onChange={handleChange}
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
         >
-          <option value="">All Categories</option>
+          <option value="">Todas as categorias</option>
           <option value="SIMPLES">SIMPLES</option>
           <option value="DUPLO">DUPLO</option>
-          <option value="SUITE">SUITE</option>
+          <option value="SUITE">SUÍTE</option>
         </select>
       </div>
       <div className="flex space-x-4">
@@ -132,7 +132,7 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
           type="submit"
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
         >
-          {rule ? 'Update Rule' : 'Add Rule'}
+          {rule ? 'Atualizar regra' : 'Adicionar regra'}
         </button>
         {onCancel && (
           <button
@@ -140,7 +140,7 @@ const PricingRuleForm = ({ rule, onSave, onCancel }) => {
             onClick={onCancel}
             className="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200"
           >
-            Cancel
+            Cancelar
           </button>
         )}
       </div>

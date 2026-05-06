@@ -63,7 +63,8 @@ export default function Bookings() {
     if (searchTerm) {
       filtered = filtered.filter(b =>
         (b.guestName?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
-        (b.room?.name?.toLowerCase().includes(searchTerm.toLowerCase()) || false)
+        (b.room?.number?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
+        (b.room?.category?.toLowerCase().includes(searchTerm.toLowerCase()) || false)
       );
     }
 
@@ -167,7 +168,7 @@ export default function Bookings() {
               <option value="">Todos Quartos</option>
               {rooms.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.name}
+                  {`Quarto ${c.number} (${c.category})`}
                 </option>
               ))}
             </select>
@@ -261,7 +262,7 @@ export default function Bookings() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                      {b.room?.name || "Não atribuído"}
+                      {b.room ? `Quarto ${b.room.number} (${b.room.category})` : "Não atribuído"}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

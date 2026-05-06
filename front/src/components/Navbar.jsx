@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { logout, getUser } from "../utils/auth";
-import { Sparkles, PlusCircle, Users, Briefcase, LogOut, LayoutDashboard, CalendarDays } from "lucide-react";
+import { PlusCircle, Users, Briefcase, LogOut, LayoutDashboard, CalendarDays } from "lucide-react";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -21,12 +22,7 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto bg-white/80 backdrop-blur-md border border-gray-100 shadow-sm rounded-full sticky top-6 z-50 transition-all">
         <div className="px-6 h-16 flex justify-between items-center">
           <div className="flex items-center gap-8">
-            <Link to="/dashboard" className="text-primary-900 font-extrabold text-xl tracking-tight flex items-center gap-2 group">
-              <div className="w-10 h-10 bg-gradient-to-tr from-primary-600 to-primary-400 rounded-full flex items-center justify-center shadow-lg shadow-primary-500/30 group-hover:rotate-12 transition-transform">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <span className="hidden sm:block">SchedulePro</span>
-            </Link>
+            <Logo />
 
             <div className="hidden lg:flex space-x-1">
               <Link
@@ -64,7 +60,7 @@ export default function Navbar() {
               </Link>
               {isAdmin && (
                 <>
-                  <Link
+                  {/* <Link
                     to="/admin"
                     className={`inline-flex items-center px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300 ${
                       isActive("/admin")
@@ -74,7 +70,7 @@ export default function Navbar() {
                   >
                     <Users className="w-4 h-4 mr-2" />
                     Usuários
-                  </Link>
+                  </Link> */}
                   <Link
                     to="/admin/rooms"
                     className={`inline-flex items-center px-4 py-2 text-sm font-semibold rounded-full transition-all duration-300 ${

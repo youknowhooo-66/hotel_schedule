@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import api from '../services/api'
 import { saveUser } from "../utils/auth";
 import { toast } from "react-toastify";
-import { Sparkles, Mail, Lock, LogIn, ArrowRight } from "lucide-react";
+import { Mail, Lock, LogIn, ArrowRight } from "lucide-react";
+import Logo from "../components/Logo";
 
 
 export default function Login(){
@@ -60,9 +61,7 @@ export default function Login(){
 
             <div className="max-w-md w-full space-y-8 bg-white/80 backdrop-blur-xl p-10 rounded-[2.5rem] shadow-2xl border border-white/50 relative z-10">
                 <div className="text-center">
-                    <div className="mx-auto w-16 h-16 bg-gradient-to-tr from-brand-600 to-brand-400 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-brand-500/30 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
-                        <Sparkles className="w-8 h-8" />
-                    </div>
+                    <Logo to="/" iconClassName="mx-auto w-16 h-16 bg-gradient-to-tr from-brand-600 to-brand-400 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-brand-500/30 transform -rotate-3 hover:rotate-0 transition-transform duration-300" showText={false} />
                     <h2 className="mt-6 text-3xl font-black text-brand-900 tracking-tight">
                         Acesse sua conta
                     </h2>
