@@ -33,7 +33,7 @@ export default function UserManagement() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 animate-in fade-in duration-500">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 animate-in fade-in duration-500">
       <div className="flex items-center gap-4 mb-8">
         <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center">
           <Users className="w-6 h-6 text-primary-600" />

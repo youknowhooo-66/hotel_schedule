@@ -40,30 +40,31 @@ export default function CriarAgendamento() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 animate-in slide-in-from-bottom-4 duration-500">
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 transition-colors mb-2"
-          >
-            <ArrowLeft className="w-4 h-4 mr-1" />
-            Voltar
-          </button>
-          <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
-            <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
-              <CalendarPlus className="w-6 h-6 text-blue-600" />
-            </div>
-            Nova Reserva
-          </h1>
-          <p className="mt-2 text-sm text-gray-500">
-            Preencha os dados abaixo para criar uma nova reserva no sistema.
-          </p>
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 animate-in fade-in duration-500 pb-20 pt-8">
+      
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center shadow-sm">
+            <CalendarPlus className="w-6 h-6 text-blue-600" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Nova Reserva</h1>
+            <p className="text-gray-500 mt-1">Cadastre um novo agendamento no sistema.</p>
+          </div>
         </div>
+
+        <button
+          onClick={() => navigate("/bookings")}
+          className="inline-flex items-center px-4 py-2 border border-gray-200 rounded-xl text-sm font-bold text-gray-600 bg-white hover:bg-gray-50 transition-all shadow-sm"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Ver Reservas
+        </button>
       </div>
 
-      <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
+      <div className="bg-white p-10 rounded-[2rem] shadow-sm border border-gray-100 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-50 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none opacity-50"></div>
         <div className="relative z-10">
           <BookingForm onSubmit={handleSubmit} rooms={rooms} />
         </div>

@@ -5,14 +5,20 @@ export const getAllRooms = async (req, res) => {
     const rooms = await prisma.room.findMany({
       include: { bookings: true },
     });
-    res.json(rooms);
+    return res.json(rooms);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("❌ Erro ao buscar quartos:", error);
+    return res.status(500).json({ error: 'Erro ao carregar lista de quartos.' });
   }
 };
 
 export const createRoom = async (req, res) => {
   const { number, category, basePrice, status } = req.body;
+
+  if (!number || !category || !basePrice) {
+    return res.status(400).json({ error: 'Número, categoria e preço base são obrigatórios.' });
+  }
+
   try {
     const newRoom = await prisma.room.create({
       data: { 
@@ -22,23 +28,32 @@ export const createRoom = async (req, res) => {
         status: status || 'AVAILABLE' 
       },
     });
-    
-    // Audit Log
-    await prisma.auditLog.create({
-      data: {
-        action: 'CREATE_ROOM',
-        entity: 'Room',
-        entityId: newRoom.id,
-        userId: req.user.id,
-        details: JSON.stringify(newRoom)
-      }
-    });
 
-    res.status(201).json(newRoom);
+    // Audit Log (Isolado para não quebrar a criação do quarto)
+    try {
+      await prisma.auditLog.create({
+        data: {
+          action: 'CREATE_ROOM',
+          entity: 'Room',
+          entityId: newRoom.id,
+          userId: req.user.id,
+          details: JSON.stringify(newRoom)
+        }
+      });
+    } catch (auditError) {
+      console.error("⚠️ Erro ao criar log de auditoria:", auditError);
+    }
+
+    return res.status(201).json(newRoom);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("❌ Erro ao criar quarto:", error);
+    if (error.code === 'P2002') {
+      return res.status(400).json({ error: 'Já existe um quarto com este número.' });
+    }
+    return res.status(500).json({ error: 'Erro interno no servidor ao criar quarto.' });
   }
 };
+
 
 export const updateRoom = async (req, res) => {
   const { id } = req.params;
@@ -54,20 +69,25 @@ export const updateRoom = async (req, res) => {
       },
     });
 
-    // Audit Log
-    await prisma.auditLog.create({
-      data: {
-        action: 'UPDATE_ROOM',
-        entity: 'Room',
-        entityId: updatedRoom.id,
-        userId: req.user.id,
-        details: JSON.stringify(updatedRoom)
-      }
-    });
+    // Audit Log (Isolado)
+    try {
+      await prisma.auditLog.create({
+        data: {
+          action: 'UPDATE_ROOM',
+          entity: 'Room',
+          entityId: updatedRoom.id,
+          userId: req.user.id,
+          details: JSON.stringify(updatedRoom)
+        }
+      });
+    } catch (auditError) {
+      console.error("⚠️ Erro ao criar log de auditoria no update:", auditError);
+    }
 
-    res.json(updatedRoom);
+    return res.json(updatedRoom);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("❌ Erro ao atualizar quarto:", error);
+    return res.status(500).json({ error: 'Erro ao atualizar quarto.' });
   }
 };
 

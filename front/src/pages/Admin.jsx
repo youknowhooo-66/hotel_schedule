@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Users, LayoutGrid, DollarSign, ListTodo, Hotel, Gavel } from "lucide-react";
 
-export default function Admin() {
+export default function Admin({ standalone = true }) {
   const adminSections = [
     {
       name: "Gerenciar Usuários",
@@ -33,8 +33,8 @@ export default function Admin() {
     },
   ];
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 animate-in fade-in duration-500">
+  const content = (
+    <div className="space-y-10 animate-in fade-in duration-500">
       <div className="flex items-center gap-4 mb-8">
         <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center shadow-sm">
           <LayoutGrid className="w-6 h-6 text-primary-600" />
@@ -63,6 +63,15 @@ export default function Admin() {
           </Link>
         ))}
       </div>
+    </div>
+  );
+
+
+  if (!standalone) return content;
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {content}
     </div>
   );
 }

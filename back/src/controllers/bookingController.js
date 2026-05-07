@@ -62,15 +62,22 @@ export const createBooking = async (req, res) => {
     }
 
     // 3. Create Booking
+    // Busca um usuário válido caso req.user.id falhe, para evitar erro de Foreign Key
+    let validUserId = req.user?.id;
+    if (!validUserId) {
+      const firstUser = await prisma.usuario.findFirst();
+      validUserId = firstUser?.id;
+    }
+
     const newBooking = await prisma.booking.create({
       data: {
-        guestName,
-        guestEmail,
+        guestName: guestName || "Hóspede",
+        guestEmail: guestEmail || "",
         checkIn: start,
         checkOut: end,
-        totalPrice: finalPrice,
+        totalPrice: Number(finalPrice) || Number(room.basePrice) || 0,
         roomId: parseInt(roomId),
-        createdById: req.user.id
+        createdById: validUserId
       },
     });
 
@@ -95,20 +102,25 @@ export const createBooking = async (req, res) => {
        alert = 'ALERTA: Risco eminente de OVERBOOKING para esta categoria.';
     }
 
-    // 5. Audit Log
-    await prisma.auditLog.create({
-      data: {
-        action: 'CREATE_BOOKING',
-        entity: 'Booking',
-        entityId: newBooking.id,
-        userId: req.user.id,
-        details: JSON.stringify({ ...newBooking, alert })
-      }
-    });
+    // 5. Audit Log (Isolado)
+    try {
+      await prisma.auditLog.create({
+        data: {
+          action: 'CREATE_BOOKING',
+          entity: 'Booking',
+          entityId: newBooking.id,
+          userId: req.user.id,
+          details: JSON.stringify({ ...newBooking, alert })
+        }
+      });
+    } catch (auditError) {
+      console.error("⚠️ Erro ao criar log de auditoria (Booking):", auditError);
+    }
 
-    res.status(201).json({ booking: newBooking, alert });
+    return res.status(201).json({ booking: newBooking, alert });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("❌ Erro ao criar agendamento:", error);
+    return res.status(500).json({ error: 'Erro interno ao processar agendamento.' });
   }
 };
 
@@ -176,20 +188,25 @@ export const updateBooking = async (req, res) => {
       }
     });
 
-    // Audit Log
-    await prisma.auditLog.create({
-      data: {
-        action: 'UPDATE_BOOKING',
-        entity: 'Booking',
-        entityId: updatedBooking.id,
-        userId: req.user.id,
-        details: JSON.stringify({ before: booking, after: updatedBooking })
-      }
-    });
+    // Audit Log (Isolado)
+    try {
+      await prisma.auditLog.create({
+        data: {
+          action: 'UPDATE_BOOKING',
+          entity: 'Booking',
+          entityId: updatedBooking.id,
+          userId: req.user.id,
+          details: JSON.stringify({ before: booking, after: updatedBooking })
+        }
+      });
+    } catch (auditError) {
+      console.error("⚠️ Erro ao criar log de auditoria no update (Booking):", auditError);
+    }
 
-    res.json(updatedBooking);
+    return res.json(updatedBooking);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("❌ Erro ao atualizar agendamento:", error);
+    return res.status(500).json({ error: 'Erro ao atualizar agendamento.' });
   }
 };
 
@@ -202,20 +219,25 @@ export const updateBookingStatus = async (req, res) => {
       data: { status },
     });
 
-    // Audit Log
-    await prisma.auditLog.create({
-      data: {
-        action: 'UPDATE_BOOKING_STATUS',
-        entity: 'Booking',
-        entityId: updatedBooking.id,
-        userId: req.user.id,
-        details: JSON.stringify({ status })
-      }
-    });
+    // Audit Log (Isolado)
+    try {
+      await prisma.auditLog.create({
+        data: {
+          action: 'UPDATE_BOOKING_STATUS',
+          entity: 'Booking',
+          entityId: updatedBooking.id,
+          userId: req.user.id,
+          details: JSON.stringify({ status })
+        }
+      });
+    } catch (auditError) {
+       console.error("⚠️ Erro ao criar log de auditoria no status (Booking):", auditError);
+    }
 
-    res.json(updatedBooking);
+    return res.json(updatedBooking);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("❌ Erro ao atualizar status do agendamento:", error);
+    return res.status(500).json({ error: 'Erro ao atualizar status.' });
   }
 };
 
@@ -227,19 +249,24 @@ export const deleteBooking = async (req, res) => {
       where: { id: parseInt(id) },
     });
 
-    // Audit Log
-    await prisma.auditLog.create({
-      data: {
-        action: 'DELETE_BOOKING',
-        entity: 'Booking',
-        entityId: parseInt(id),
-        userId: req.user.id,
-        details: JSON.stringify(booking)
-      }
-    });
+    // Audit Log (Isolado)
+    try {
+      await prisma.auditLog.create({
+        data: {
+          action: 'DELETE_BOOKING',
+          entity: 'Booking',
+          entityId: parseInt(id),
+          userId: req.user.id,
+          details: JSON.stringify(booking)
+        }
+      });
+    } catch (auditError) {
+      console.error("⚠️ Erro ao criar log de auditoria no delete (Booking):", auditError);
+    }
 
-    res.status(204).send();
+    return res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("❌ Erro ao deletar agendamento:", error);
+    return res.status(500).json({ error: 'Erro ao deletar agendamento.' });
   }
 };

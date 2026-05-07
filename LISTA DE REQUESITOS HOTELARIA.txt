@@ -1,14 +1,25 @@
-LISTA DE REQUESITOS HOTELARIA
+LISTA DE REQUISITOS - GESTÃO HOTELARIA
 
-USUARIO PODE:
-- CADASTRAR QUARTOS (SIMPLES, DUPLOS, SUÍTES)
-- MECANISMO PARA GERENCIAR OS QUARTOS MAIS FACILMENTE (OS PREÇOS VARIAM MUITO CONFORME TEMPORADA E DEMANDA), PARA UM CONTROLE DETALHADO GARANTIDO A OTIMIZAÇÃO DAS OCUPAÇÕES E MAXIMIZANDO A RECEITA.
-CRIAR RESERVAS
-VISUALIZAR RESERVAS
-GERENCIAR RESERVAS
-ALGORITMO DE GERENCIAMENTO DE DISPONILIDADE DE QUARTOS QUE EMITIR ALERTAS AUTOMÁTICOS QUANDO:
-- A DISPONIBILIDADE DE QUARTOS ATINGE O LIMITE MÍNIMO
-- ESTIVER PRÓXIMO DO OVERBOOKING
-REGISTRAR HISTÓRICO COMPLETO DE CADA MOVIMENTAÇÃO IDENTIFICANDO O RESPONSÁVEL E A DATA DA OPERAÇÃO, GARANTIDO:
-- RASTREABILIDADE
-- TRANSPARÊNCIA DOS PROCESSOS.
+1. GESTÃO DE USUÁRIOS E SEGURANÇA
+   - Autenticação e Autorização (JWT).
+   - Controle de perfis (ADMIN e USER).
+   - Fluxo de recuperação de senha.
+
+2. GESTÃO DE QUARTOS
+   - Cadastro completo (Número, Categoria: Simples, Duplo, Suíte).
+   - Monitoramento de Status (Disponível, Ocupado, Manutenção).
+   - Definição de preços base por categoria.
+
+3. SISTEMA DE RESERVAS
+   - Ciclo de vida da reserva (Pendente, Confirmada, Cancelada, Check-in, Check-out).
+   - Algoritmo de prevenção de conflitos de datas (Double Booking Prevention).
+   - Monitoramento de disponibilidade com alertas automáticos de ocupação crítica.
+
+4. MOTOR DE PRECIFICAÇÃO DINÂMICA
+   - Criação de regras baseadas em temporada e demanda.
+   - Aplicação automática de multiplicadores ou preços fixos.
+   - Otimização de receita baseada na categoria do quarto.
+
+5. AUDITORIA E TRANSPARÊNCIA
+   - Log de Auditoria completo: Rastreabilidade de quem, quando e o que foi alterado.
+   - Dashboards de métricas (Reservas, Quartos e Receita Total).

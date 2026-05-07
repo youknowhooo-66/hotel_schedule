@@ -40,7 +40,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="space-y-10 animate-in fade-in duration-500 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-white p-8 rounded-[2rem] shadow-sm border border-gray-100 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary-50 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none"></div>
         <div className="relative z-10">
@@ -113,9 +113,9 @@ export default function Dashboard() {
         )}
       </div>
 
-      {isAdmin && activeAdminSection === 'pricing' && <PricingRuleManagement />}
-      {isAdmin && activeAdminSection === 'audit' && <AuditLogPage />}
-      <Admin />
+      {isAdmin && activeAdminSection === 'pricing' && <PricingRuleManagement standalone={false} />}
+      {isAdmin && activeAdminSection === 'audit' && <AuditLogPage standalone={false} />}
+      <Admin standalone={false} />
     </div>
   );
 }

@@ -8,6 +8,8 @@ const RoomForm = ({ room, onSave, onCancel }) => {
     status: 'AVAILABLE', // Default status
   });
 
+  const [errors, setErrors] = useState({});
+
   useEffect(() => {
     if (room) {
       setFormData({
@@ -26,35 +28,49 @@ const RoomForm = ({ room, onSave, onCancel }) => {
     }
   }, [room]);
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.number) newErrors.number = "O número do quarto é obrigatório.";
+    if (!formData.basePrice) newErrors.basePrice = "O preço base é obrigatório.";
+    else if (formData.basePrice <= 0) newErrors.basePrice = "O preço deve ser maior que zero.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: null }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData);
+    if (validateForm()) {
+      onSave(formData);
+    }
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="number" className="block text-sm font-medium text-gray-700">Room Number</label>
+        <label htmlFor="number" className="block text-sm font-medium text-gray-700">Número do Quarto</label>
         <input
           type="text"
           id="number"
           name="number"
           value={formData.number}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-          required
+          className={`mt-1 block w-full border ${errors.number ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm p-2`}
         />
+        {errors.number && <p className="text-red-500 text-xs mt-1">{errors.number}</p>}
       </div>
       <div>
-        <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
+        <label htmlFor="category" className="block text-sm font-medium text-gray-700">Categoria</label>
         <select
           id="category"
           name="category"
@@ -68,17 +84,17 @@ const RoomForm = ({ room, onSave, onCancel }) => {
         </select>
       </div>
       <div>
-        <label htmlFor="basePrice" className="block text-sm font-medium text-gray-700">Base Price</label>
+        <label htmlFor="basePrice" className="block text-sm font-medium text-gray-700">Preço Base</label>
         <input
           type="number"
           id="basePrice"
           name="basePrice"
           value={formData.basePrice}
           onChange={handleChange}
-          className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
+          className={`mt-1 block w-full border ${errors.basePrice ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm p-2`}
           step="0.01"
-          required
         />
+        {errors.basePrice && <p className="text-red-500 text-xs mt-1">{errors.basePrice}</p>}
       </div>
       <div>
         <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
@@ -89,9 +105,9 @@ const RoomForm = ({ room, onSave, onCancel }) => {
           onChange={handleChange}
           className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
         >
-          <option value="AVAILABLE">AVAILABLE</option>
-          <option value="OCCUPIED">OCCUPIED</option>
-          <option value="MAINTENANCE">MAINTENANCE</option>
+          <option value="AVAILABLE">DISPONÍVEL</option>
+          <option value="OCCUPIED">OCUPADO</option>
+          <option value="MAINTENANCE">MANUTENÇÃO</option>
         </select>
       </div>
       <div className="flex space-x-4">
@@ -99,7 +115,7 @@ const RoomForm = ({ room, onSave, onCancel }) => {
           type="submit"
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
         >
-          {room ? 'Update Room' : 'Add Room'}
+          {room ? 'Atualizar Quarto' : 'Adicionar Quarto'}
         </button>
         {onCancel && (
           <button
@@ -107,7 +123,7 @@ const RoomForm = ({ room, onSave, onCancel }) => {
             onClick={onCancel}
             className="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200"
           >
-            Cancel
+            Cancelar
           </button>
         )}
       </div>
@@ -116,3 +132,4 @@ const RoomForm = ({ room, onSave, onCancel }) => {
 };
 
 export default RoomForm;
+

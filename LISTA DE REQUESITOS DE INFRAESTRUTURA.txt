@@ -1,22 +1,11 @@
-Lista de requisitos de infraestrutura com base na estrutura do projeto:
+Lista de requisitos de infraestrutura do projeto Hotel Schedule:
 
-   1. Tempo de Execução (Runtime) Node.js: O projeto é baseado em Node.js, então um
-      ambiente de execução Node.js é necessário.
-   2. Banco de Dados Relacional: O prisma/schema.prisma e
-      prisma/migrations para o uso do Prisma ORM, que requer um banco de dados   
-      relacional (ex: PostgreSQL(usado nesse projeto), MySQL, SQL Server) para armazenar os dados da    
-      aplicação.
-   3. Docker: O Dockerfile para que a aplicação seja conteinerizada, para um ambiente Docker para construir e executar as imagens da aplicação.        
-   4. Sistema de Gerenciamento de Variáveis de Ambiente: Os arquivos .env.test e   
-      env.js servem como um mecanismo para gerenciar e injetar        
-      variáveis de ambiente de forma segura (por exemplo, chaves de API, strings de
-      conexão do banco de dados).
-   5. Ambiente de Teste: Com jest.config.js e a pasta __tests__, cria-se um ambiente que   
-      para execução de testes Jest, como parte de um pipeline de CI/CD.
-   6. Sistema de Controle de Versão (Git): Embora não explicitamente um "requisito 
-      de infraestrutura" no sentido de hardware, é fundamental para o
-      desenvolvimento e implantação, e o .gitignore confirma seu uso.
-   7. CI/CD (Integração Contínua/Entrega Contínua): Para automatizar a construção, 
-      teste e implantação dos contêineres Docker da aplicação.
-   8. Monitoramento e Registro (Logging): Essencial para observar a saúde da       
-      aplicação, identificar problemas e depurar em produção.
+1. Tempo de Execução (Runtime): Node.js (v18 ou superior).
+2. Banco de Dados: PostgreSQL (via Prisma ORM) para persistência de dados hoteleiros.
+3. Conteinerização: Docker e Docker Compose para isolamento do backend e banco de dados.
+4. Segurança de Ambiente: Gerenciamento de segredos e chaves JWT via arquivos .env e utilitário env.js.
+5. Qualidade de Código: Suíte de testes automatizados com Jest e Supertest para validação de APIs.
+6. Controle de Versão: Git para rastreabilidade de código.
+7. Disponibilidade: Estrutura preparada para integração com pipelines de CI/CD (GitHub Actions/GitLab CI).
+8. Auditoria: Sistema de logs de auditoria (Audit Log) integrado ao banco de dados para rastrear ações de usuários.
+9. Servidor Web: Express.js com políticas de CORS configuradas para integração com o Frontend (Vite).

@@ -1,14 +1,14 @@
 {
-  "name": "cleaning_schedule",
+  "name": "hotel_schedule",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/youknowhooo-66/cleaning_schedule#readme",
+  "homepage": "https://github.com/youknowhooo-66/hotel_schedule#readme",
   "bugs": {
-    "url": "https://github.com/youknowhooo-66/cleaning_schedule/issues"
+    "url": "https://github.com/youknowhooo-66/hotel_schedule/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/youknowhooo-66/cleaning_schedule.git"
+    "url": "git+https://github.com/youknowhooo-66/hotel_schedule.git"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
@@ -20,24 +20,24 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.7.0",
+    "@prisma/client": "^6.19.3",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "pg": "^8.20.0"
+    "pg": "^8.20.0",
+    "prisma": "^6.19.3"
   },
   "devDependencies": {
-    "@prisma/client": "^7.8.0",
     "@types/express": "^5.0.6",
     "cross-env": "^10.1.0",
     "dotenv": "^17.4.2",
     "jest": "^30.3.0",
     "nodemon": "^3.1.14",
-    "prisma": "^7.8.0",
     "supertest": "^7.2.2"
   }
 }
