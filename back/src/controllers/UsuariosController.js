@@ -64,6 +64,12 @@ export async function loginUsuario(req, res) {
   try {
     const { email, senha } = req.body;
 
+    if (!email || !senha) {
+      return res.status(401).json({
+        message: "Email ou senha inválidos",
+      });
+    }
+
     const usuario = await prisma.usuario.findUnique({
       where: { email },
     });
